@@ -1,0 +1,32 @@
+service: flask-app
+
+provider:
+  name: aws
+  runtime: python3.11
+  stage: dev
+  region: us-east-1
+  role: "arn:aws:iam::xxxx:role/lambda_execution_role"
+
+functions:
+  app:
+    handler: wsgi_handler.handler
+    events:
+      - http:
+          path: /
+          method: get
+      - http:
+          path: /list-buckets
+          method: get
+
+plugins:
+  - serverless-wsgi
+  - serverless-python-requirements
+
+custom:
+  wsgi:
+    app: app.app
+  pythonRequirements:
+    dockerizePip: true
+    slim: true
+    strip: false
+    noDeploy: []
