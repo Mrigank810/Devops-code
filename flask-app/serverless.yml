@@ -5,8 +5,13 @@ provider:
   runtime: python3.11
   stage: dev
   region: us-east-1
-  role: "arn:aws:iam::xxxx:role/lambda_execution_role"
-
+  role: "arn:aws:iam:::role/lambda_execution_role"
+  vpc:
+    securityGroupIds:
+      -  
+    subnetIds:
+      - 
+      -  
 functions:
   app:
     handler: wsgi_handler.handler
